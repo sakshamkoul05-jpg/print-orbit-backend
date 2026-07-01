@@ -87,10 +87,6 @@ app.post('/api/payments/verify', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-if (!process.env.VERCEL) {
-  app.listen(PORT, () => {
-    console.log(`🚀 Backend running on http://localhost:${PORT}`);
-  });
-}
-
-export default app;
+app.listen(PORT, () => {
+  console.log(`🚀 Backend running on http://localhost:${PORT}`);
+});
