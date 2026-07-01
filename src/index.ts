@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import Razorpay from 'razorpay';
 import crypto from 'crypto';
-import prisma from './prisma.js';
+import { getPrisma } from './prisma.js';
 import aiRoutes from './routes/ai.js';
 
 dotenv.config();
@@ -53,7 +53,8 @@ app.post('/api/payments/verify', async (req, res) => {
       return res.status(400).json({ error: 'Invalid signature' });
     }
 
-    const order = await prisma.order.create({
+    const db = getPrisma();
+    const order = await db.order.create({
       data: {
         orderNumber: `PO-${Date.now()}`,
         email: customer.email,
